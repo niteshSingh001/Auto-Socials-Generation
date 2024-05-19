@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import base_url from "../bootapi";
 
 import { Backdrop, CircularProgress } from "@mui/material";
 
@@ -16,7 +17,7 @@ const Home = () => {
       .split("\n")
       .filter((domain) => domain.trim() !== "");
     try {
-      const response = await axios.post("http://localhost:5000/search", {
+      const response = await axios.post(`${base_url.api1}/search`, {
         companies: domainList,
       });
       navigate("/result", { state: { results: response.data.data } });

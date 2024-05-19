@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import { Pagination } from "@mui/material";
 import axios from "axios";
+import base_url from "../bootapi";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 const View = () => {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ const View = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/getLinkedinData")
+      .get(`${base_url.api1}/getLinkedinData`)
       .then((response) => {
         console.log("17--->", response.data);
         setResultData(response.data.data);
@@ -93,6 +95,12 @@ const View = () => {
       ) : (
         <p>No data available. Please submit some domains for analysis.</p>
       )}
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isSearching}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 };
