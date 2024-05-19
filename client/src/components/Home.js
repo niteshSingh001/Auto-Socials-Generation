@@ -12,7 +12,9 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (domains === "") return alert("Please Enter Domain Name");
     setIsSearching(true); // Start search
+
     const domainList = domains
       .split("\n")
       .filter((domain) => domain.trim() !== "");
