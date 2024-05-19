@@ -1,7 +1,15 @@
 const puppeteer = require("puppeteer");
 
 exports.scrapeLinkedIn = async (companies) => {
-  const browser = await puppeteer.launch({ headless: true });
+  // const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
+    headless: "new",
+    executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
+  });
   const page = await browser.newPage();
 
   const results = [];
